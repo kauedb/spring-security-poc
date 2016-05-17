@@ -1,22 +1,17 @@
 package br.com.kauedb;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
  */
-@Controller
+@RestController
 public class HelloController {
 
-    @RequestMapping(value = "/postHere", method = RequestMethod.POST)
-    public String postHere(HttpServletRequest httpServletRequest) {
-        final String something = httpServletRequest.getParameter("something");
-        System.out.printf("something=%s", something);
-        return "/hello";
+    @RequestMapping(value = "/say", method = RequestMethod.POST)
+    @ResponseBody
+    public String postHere(@RequestBody String msg) {
+        return String.format("{\"msg\":\"%s\"}", msg);
     }
 
 }

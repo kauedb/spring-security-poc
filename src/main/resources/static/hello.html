@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Angular Basic Setup</title>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', [])
+        app.controller('MainCtrl', function ($scope, $http, $location) {
+            $scope.msg = 'ainda nao'
+            $scope.go = function () {
+                var data = $scope.texto
+                $http.post('/say', data).then(function (res) {
+                    $scope.msg = res.config.data
+                    console.log('foi', res)
+                }, function (err) {
+                    console.log('deu erro', err)
+                });
+            }
+            $scope.texto = '';
+        });
+    </script>
+
+</head>
+<body ng-app="myApp" ng-controller="MainCtrl">
+{{ msg }}
+<div ng-click="go()">Clique aqui</div>
+<textarea ng-model="texto"></textarea>
+</body>
+</html>
